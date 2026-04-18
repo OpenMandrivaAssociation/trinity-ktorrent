@@ -2,11 +2,9 @@
 %bcond avahi 1
 
 # TDE variables
-%define tde_epoch 2
 %if "%{?tde_version}" == ""
 %define tde_version 14.1.5
 %endif
-%define pkg_rel 2
 
 %define tde_pkg ktorrent
 %define tde_prefix /opt/trinity
@@ -23,9 +21,8 @@
 
 
 Name:		trinity-%{tde_pkg}
-Epoch:		%{tde_epoch}
 Version:	2.2.8
-Release:	%{?tde_version}_%{?!preversion:%{pkg_rel}}%{?preversion:0_%{preversion}}%{?dist}
+Release:	%{?tde_version:%{tde_version}_}3
 Summary:	BitTorrent client for Trinity
 Group:		Applications/Utilities
 URL:		http://ktorrent.org
@@ -33,7 +30,7 @@ URL:		http://ktorrent.org
 License:	GPLv2+
 
 
-Source0:		https://mirror.ppa.trinitydesktop.org/trinity/releases/R%{tde_version}/main/applications/internet/%{tarball_name}-%{tde_version}%{?preversion:~%{preversion}}.tar.xz
+Source0:		https://mirror.ppa.trinitydesktop.org/trinity/releases/R%{tde_version}/main/applications/internet/%{tarball_name}-%{tde_version}.tar.xz
 
 BuildSystem:	  cmake
 
@@ -45,6 +42,8 @@ BuildOption:    -DWITH_GCC_VISIBILITY=%{!?with_clang:ON}%{?with_clang:OFF}
 
 BuildRequires:	trinity-tdelibs-devel >= %{tde_version}
 BuildRequires:	trinity-tdebase-devel >= %{tde_version}
+BuildRequires:  trinity-tde-cmake
+
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 
@@ -56,7 +55,7 @@ BuildRequires:	pkgconfig(gmp)
 # AVAHI support
 #  Disabled on RHEL4 and RHEL5
 %if %{with avahi}
-BuildRequires:	trinity-avahi-tqt-devel
+BuildRequires:	pkgconfig(avahi-tqt)
 BuildRequires:  pkgconfig(avahi-client)
 Requires:		trinity-avahi-tqt
 %endif
