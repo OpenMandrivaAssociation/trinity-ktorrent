@@ -22,7 +22,7 @@
 
 Name:		trinity-%{tde_pkg}
 Version:	2.2.8
-Release:	%{?tde_version:%{tde_version}_}3
+Release:	%{?tde_version:%{tde_version}_}4
 Summary:	BitTorrent client for Trinity
 Group:		Applications/Utilities
 URL:		http://ktorrent.org
@@ -57,7 +57,6 @@ BuildRequires:	pkgconfig(gmp)
 %if %{with avahi}
 BuildRequires:	pkgconfig(avahi-tqt)
 BuildRequires:  pkgconfig(avahi-client)
-Requires:		trinity-avahi-tqt
 %endif
 
 # GEOIP
